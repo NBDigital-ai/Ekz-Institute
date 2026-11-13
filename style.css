@@ -53,6 +53,7 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 .section-title{font-size:clamp(1.8rem,4vw,2.6rem);color:var(--navy)}
 .section-sub{color:var(--muted);font-weight:600;margin-bottom:2rem}
 .courses,.how{text-align:center}
+.how .section-title{margin-bottom:2rem}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:2rem}
 .flip{position:relative;min-height:400px;cursor:pointer;perspective:1200px;border-radius:var(--r);outline-offset:4px}
 .flip:focus-visible{outline:3px solid var(--blue)}
