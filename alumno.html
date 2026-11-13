@@ -44,6 +44,17 @@
 </section>
 </main>
 
+<!-- Mascota: solo para alumnos menores de 12 (se oculta si en la portada eligieron "Adulto") -->
+<div class="buddy" id="buddy" role="button" tabindex="0" aria-label="Mascota: ir al juego" data-kids-only data-greeting="¡Hola! ¿Jugamos mientras?" data-go="index.html#juego">
+  <div class="buddy-bubble" id="buddy-bubble"></div>
+  <div class="buddy-body">
+    <div class="eye"><div class="pupil" data-ox="0" data-oy="0"></div></div>
+    <svg class="buddy-mouth" viewBox="0 0 100 44" aria-hidden="true"><path d="M8 10 Q50 50 92 10 Q50 24 8 10Z" fill="#fff" stroke="#3aa37a" stroke-width="5" stroke-linejoin="round"/><path d="M22 14 l8 11 8-11 8 11 8-11 8 11 8-11 8 11 8-11" fill="#1F2B4D"/></svg>
+  </div>
+  <div class="buddy-legs"><span></span><span></span></div>
+</div>
+
 <script src="menu.js" defer></script>
+<script src="buddy.js" defer></script>
 </body>
 </html>

@@ -4,34 +4,6 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
-// Logo vivo: pupilas que siguen el cursor. data-ox/oy = posición de reposo (la del logo original), en fracción del ojo
-const pupils = document.querySelectorAll('.pupil');
-function placePupils(ev) {
-  for (const p of pupils) {
-    const r = p.parentElement.getBoundingClientRect();
-    let x = r.width * +p.dataset.ox, y = r.width * +p.dataset.oy;
-    if (ev) {
-      const dx = ev.clientX - (r.left + r.width / 2), dy = ev.clientY - (r.top + r.height / 2);
-      const a = Math.atan2(dy, dx), d = Math.min(r.width * 0.2, Math.hypot(dx, dy) / 15);
-      x = Math.cos(a) * d; y = Math.sin(a) * d;
-    }
-    p.style.transform = `translate(${x}px, ${y}px)`;
-  }
-}
-placePupils();
-addEventListener('resize', () => placePupils());
-addEventListener('pointermove', placePupils, { passive: true });
-
-// Mascota que reacciona: guiño en el hero y brinco del logo del menú
-const logoWrap = document.querySelector('.logo-wrap');
-const brandLogo = document.querySelector('.brand img');
-function celebrate() {
-  for (const el of [logoWrap, brandLogo]) { el.classList.remove('happy'); void el.offsetWidth; el.classList.add('happy'); }
-  for (const eye of [document.querySelector('.logo-wrap .eye'), document.querySelector('.buddy .eye')]) {
-    eye.classList.add('wink'); setTimeout(() => eye.classList.remove('wink'), 450);
-  }
-}
-
 // Pasos que se encienden en secuencia al entrar en pantalla
 const stepsIo = new IntersectionObserver((entries) => {
   for (const e of entries) if (e.isIntersecting) {
@@ -55,40 +27,8 @@ document.querySelectorAll('.age-btn').forEach((b) => b.addEventListener('click',
   heroLead.textContent = LEADS[b.dataset.group];
   document.getElementById('edad-input').value = b.dataset.age;
   document.getElementById('grupo-input').value = b.dataset.group;
+  try { localStorage.setItem('ekzGroup', b.dataset.group); } catch { /* modo privado */ }
 }));
-
-// Mascota acompañante: su altura sigue el avance del scroll; camina mientras te mueves y saluda en cada sección
-const buddy = document.getElementById('buddy');
-const bubble = document.getElementById('buddy-bubble');
-const GREETINGS = { inicio: '¡Hola! 👋', quienes: 'Para peques… y grandes', cursos: 'Toca una tarjeta', juego: '¿Jugamos?', cambridge: '¡Rumbo a Cambridge!', nivel: '¡Tú puedes!', como: 'Es muy fácil', 'clase-muestra': '¡Agenda tu clase!' };
-const sections = Object.keys(GREETINGS).map((id) => document.getElementById(id));
-let walkTimer, lastGreeting = '';
-function moveBuddy() {
-  const max = document.documentElement.scrollHeight - innerHeight;
-  const progress = max > 0 ? scrollY / max : 0;
-  const top = 90, bottom = innerHeight - buddy.offsetHeight - 24;
-  buddy.style.transform = `translateY(${top + progress * (bottom - top)}px)`;
-  buddy.classList.add('walking');
-  clearTimeout(walkTimer);
-  walkTimer = setTimeout(() => {
-    buddy.classList.remove('walking');
-    const mid = scrollY + innerHeight / 2;
-    const current = sections.filter((s) => s.offsetTop <= mid).pop();
-    if (current && current.id !== lastGreeting) { lastGreeting = current.id; greet(GREETINGS[current.id]); }
-  }, 180);
-}
-let bubbleTimer;
-function greet(text) {
-  bubble.textContent = text; bubble.classList.add('show');
-  clearTimeout(bubbleTimer); bubbleTimer = setTimeout(() => bubble.classList.remove('show'), 2500);
-}
-addEventListener('scroll', moveBuddy, { passive: true });
-addEventListener('resize', moveBuddy);
-moveBuddy();
-setTimeout(() => greet(GREETINGS.inicio), 800);
-const buddyGo = () => { say('Hello!'); celebrate(); document.getElementById('clase-muestra').scrollIntoView({ behavior: 'smooth' }); };
-buddy.addEventListener('click', buddyGo);
-buddy.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); buddyGo(); } });
 
 // Tarjetas de cursos que se voltean
 document.querySelectorAll('.flip').forEach((card) => {
@@ -96,26 +36,6 @@ document.querySelectorAll('.flip').forEach((card) => {
   card.addEventListener('click', toggle);
   card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
 });
-
-// Sonido y voz (sin archivos): tono corto + el navegador pronuncia la palabra
-let audio;
-function tone(freq, ms) {
-  try {
-    audio ??= new AudioContext();
-    const o = audio.createOscillator(), g = audio.createGain();
-    o.frequency.value = freq; o.connect(g); g.connect(audio.destination);
-    g.gain.setValueAtTime(0.15, audio.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + ms / 1000);
-    o.start(); o.stop(audio.currentTime + ms / 1000);
-  } catch { /* sin audio, sin drama */ }
-}
-function say(word) {
-  if (!('speechSynthesis' in window)) return;
-  speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(word);
-  u.lang = 'en-US'; u.rate = 0.85;
-  speechSynthesis.speak(u);
-}
 
 // Mini juego de vocabulario. Modo "ver": emoji → palabra. Modo "escuchar": voz → emoji.
 const EMOJI = { cat: '🐱', dog: '🐶', fish: '🐟', apple: '🍎', bread: '🍞', banana: '🍌', blue: '🔵', red: '🔴', green: '🟢', elephant: '🐘', lion: '🦁', monkey: '🐵', sun: '☀️', moon: '🌙', star: '⭐' };
@@ -256,6 +176,5 @@ console.assert(levelFor(3) === LEVEL_NAMES[1] && levelFor(4) === LEVEL_NAMES[1],
 console.assert(levelFor(5) === LEVEL_NAMES[2] && levelFor(6) === LEVEL_NAMES[2], 'nivel avanzado');
 console.assert([...GAME, ...LEVEL].every((q) => q.options.includes(q.answer)), 'cada pregunta contiene su respuesta');
 console.assert(GAME.every((q) => q.options.every((o) => EMOJI[o])), 'cada opción del juego tiene emoji');
-console.assert(sections.every(Boolean), 'cada saludo de la mascota apunta a una sección existente');
 console.assert(document.querySelectorAll('.age-btn').length === Object.keys(LEADS).length && [...document.querySelectorAll('.age-btn')].every((b) => LEADS[b.dataset.group]), 'cada botón de edad tiene texto');
 console.assert(LEVEL_NAMES.every((n) => [...document.getElementById('nivel-select').options].some((o) => o.text === n)), 'niveles coinciden con el formulario');

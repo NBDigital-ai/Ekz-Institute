@@ -169,6 +169,7 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 @keyframes bob{to{transform:translateY(-3px) rotate(2deg)}}
 .buddy-bubble{position:absolute;right:calc(100% + 10px);top:6px;background:#fff;color:var(--navy);border:3px solid var(--navy);border-radius:14px 14px 2px 14px;padding:.4em .8em;font-family:var(--head);font-weight:600;font-size:.95rem;white-space:nowrap;opacity:0;transform:translateX(8px) scale(.9);transition:opacity .25s,transform .25s;pointer-events:none}
 .buddy-bubble.show{opacity:1;transform:none}
+.buddy.parked{top:auto;bottom:20px;animation:bob 1.2s infinite alternate ease-in-out}
 @media (max-width:600px){.buddy{width:48px;right:10px;transform-origin:top right}.buddy-body{width:48px;height:48px}.buddy-legs span{height:11px}}
 @media (prefers-reduced-motion:reduce){.buddy{display:none}}
 
