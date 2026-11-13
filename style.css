@@ -38,6 +38,8 @@ a{color:inherit}
 .drawer a{text-decoration:none;font-family:var(--head);font-weight:600;font-size:1.15rem;color:var(--navy);padding:.55em .9em;border-radius:12px}
 .drawer a:hover{background:#fff;color:var(--red)}
 .drawer-title{margin:1.2rem 0 .3rem;padding:0 .9em;font-family:var(--head);font-weight:700;color:var(--muted);text-transform:uppercase;font-size:.8rem;letter-spacing:.08em}
+.ico{width:1.2em;height:1.2em;vertical-align:-.25em;margin-right:.3em;flex-shrink:0}
+h1 .ico{width:.9em;height:.9em;vertical-align:-.08em}
 .soon{display:inline-block;background:var(--yellow);color:var(--navy);text-transform:none;letter-spacing:0;font-size:.7rem;padding:.1em .6em;border-radius:999px;margin-left:.4em;vertical-align:middle}
 .drawer-backdrop{position:fixed;inset:0;background:rgba(31,43,77,.5);z-index:25;opacity:0;pointer-events:none;transition:opacity .3s}
 .menu-open .drawer-backdrop{opacity:1;pointer-events:auto}
