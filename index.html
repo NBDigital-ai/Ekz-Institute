@@ -33,7 +33,14 @@
   <div class="hero-text">
     <p class="kicker">Escuela 100 % online</p>
     <h1>Inglés para niños de <span class="hl-red">4 a 12 años</span>, con preparación <span class="hl-blue">Cambridge</span></h1>
-    <p class="lead">Clases en vivo los lunes, miércoles y viernes. Grupos pequeños, maestros que hacen que los niños quieran volver, y un camino claro hacia las certificaciones Cambridge.</p>
+    <p class="lead" id="hero-lead">Clases en vivo los lunes, miércoles y viernes. Grupos pequeños, maestros que hacen que los niños quieran volver, y un camino claro hacia las certificaciones Cambridge.</p>
+    <div class="ages" role="group" aria-label="¿Para quién es?">
+      <span>¿Para quién?</span>
+      <button type="button" class="age-btn" data-age="5" data-group="4-6 años">4-6</button>
+      <button type="button" class="age-btn" data-age="8" data-group="7-9 años">7-9</button>
+      <button type="button" class="age-btn" data-age="11" data-group="10-12 años">10-12</button>
+      <button type="button" class="age-btn" data-age="" data-group="Adulto">Adulto</button>
+    </div>
     <div class="cta-row">
       <a href="#clase-muestra" class="btn">Agenda tu clase muestra</a>
       <a href="#juego" class="btn btn-ghost">Juega en inglés</a>
@@ -131,7 +138,12 @@
     <p>Un juego de 30 segundos para que tu hijo pruebe cómo aprendemos. Toca la respuesta y escucha cómo se pronuncia.</p>
   </div>
   <div class="game-board" id="game-board">
+    <div class="game-mode" role="group" aria-label="Modo de juego">
+      <button type="button" class="mode-btn active" data-mode="see">👀 Ver y leer</button>
+      <button type="button" class="mode-btn" data-mode="hear">👂 Escuchar y elegir</button>
+    </div>
     <div class="game-emoji" id="game-emoji"></div>
+    <p class="game-word" id="game-word" aria-live="polite"></p>
     <div class="game-options" id="game-options"></div>
     <p class="game-status" id="game-status" role="status"></p>
   </div>
@@ -187,7 +199,7 @@
   <!-- shortcut: Formspree ID pendiente hasta tener correo de la escuela; sustituir FORMSPREE_ID -->
   <form action="https://formspree.io/f/FORMSPREE_ID" method="POST" class="form">
     <label>Tu nombre <input name="nombre" required autocomplete="name"></label>
-    <label>Edad del alumno <input name="edad" type="number" min="3" max="99" required></label>
+    <label>Edad del alumno <input name="edad" id="edad-input" type="number" min="3" max="99" required></label>
     <label>Nivel que te interesa
       <select name="nivel" id="nivel-select" required>
         <option value="">Elige uno</option>
@@ -203,6 +215,7 @@
         <option>Lunes</option><option>Miércoles</option><option>Viernes</option>
       </select>
     </label>
+    <input type="hidden" name="grupo" id="grupo-input">
     <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp">
     <button class="btn" type="submit">Enviar solicitud</button>
     <p class="form-msg" role="status"></p>

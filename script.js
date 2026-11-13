@@ -22,6 +22,40 @@ placePupils();
 addEventListener('resize', () => placePupils());
 addEventListener('pointermove', placePupils, { passive: true });
 
+// Mascota que reacciona: guiño en el hero y brinco del logo del menú
+const logoWrap = document.querySelector('.logo-wrap');
+const brandLogo = document.querySelector('.brand img');
+function celebrate() {
+  for (const el of [logoWrap, brandLogo]) { el.classList.remove('happy'); void el.offsetWidth; el.classList.add('happy'); }
+  const eye = document.querySelector('.eye');
+  eye.classList.add('wink'); setTimeout(() => eye.classList.remove('wink'), 450);
+}
+
+// Pasos que se encienden en secuencia al entrar en pantalla
+const stepsIo = new IntersectionObserver((entries) => {
+  for (const e of entries) if (e.isIntersecting) {
+    e.target.classList.add('drawn');
+    e.target.querySelectorAll('li').forEach((li, i) => setTimeout(() => li.classList.add('lit'), 350 * i + 200));
+    stepsIo.unobserve(e.target);
+  }
+}, { threshold: 0.4 });
+stepsIo.observe(document.querySelector('.steps'));
+
+// Selector de edad: cambia el texto del hero y prellena el formulario
+const LEADS = {
+  '4-6 años': 'Juegos, canciones y cuentos para sus primeras palabras en inglés. Clases cortas, muy activas, lunes, miércoles y viernes.',
+  '7-9 años': 'Leen, escriben y hablan en inglés con confianza, rumbo a Starters y Movers. Grupos pequeños de su edad.',
+  '10-12 años': 'Conversación real y preparación para Flyers y Key, con compañeros de su edad y un camino claro hacia Cambridge.',
+  'Adulto': 'Desde cero o para certificar el nivel que ya tienes. Mismos horarios, misma atención, en vivo y en línea.',
+};
+const heroLead = document.getElementById('hero-lead');
+document.querySelectorAll('.age-btn').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('.age-btn').forEach((x) => x.classList.toggle('active', x === b));
+  heroLead.textContent = LEADS[b.dataset.group];
+  document.getElementById('edad-input').value = b.dataset.age;
+  document.getElementById('grupo-input').value = b.dataset.group;
+}));
+
 // Tarjetas de cursos que se voltean
 document.querySelectorAll('.flip').forEach((card) => {
   const toggle = () => card.classList.toggle('flipped');
@@ -49,20 +83,37 @@ function say(word) {
   speechSynthesis.speak(u);
 }
 
-// Mini juego de vocabulario
+// Mini juego de vocabulario. Modo "ver": emoji → palabra. Modo "escuchar": voz → emoji.
+const EMOJI = { cat: '🐱', dog: '🐶', fish: '🐟', apple: '🍎', bread: '🍞', banana: '🍌', blue: '🔵', red: '🔴', green: '🟢', elephant: '🐘', lion: '🦁', monkey: '🐵', sun: '☀️', moon: '🌙', star: '⭐' };
 const GAME = [
-  { emoji: '🐱', answer: 'cat', options: ['cat', 'dog', 'fish'] },
-  { emoji: '🍎', answer: 'apple', options: ['bread', 'apple', 'banana'] },
-  { emoji: '🔵', answer: 'blue', options: ['red', 'green', 'blue'] },
-  { emoji: '🐘', answer: 'elephant', options: ['elephant', 'lion', 'monkey'] },
-  { emoji: '☀️', answer: 'sun', options: ['moon', 'sun', 'star'] },
+  { answer: 'cat', options: ['cat', 'dog', 'fish'] },
+  { answer: 'apple', options: ['bread', 'apple', 'banana'] },
+  { answer: 'blue', options: ['red', 'green', 'blue'] },
+  { answer: 'elephant', options: ['elephant', 'lion', 'monkey'] },
+  { answer: 'sun', options: ['moon', 'sun', 'star'] },
 ];
 const gEmoji = document.getElementById('game-emoji');
+const gWord = document.getElementById('game-word');
 const gOptions = document.getElementById('game-options');
 const gStatus = document.getElementById('game-status');
-let gIndex = 0, gScore = 0;
+let gIndex = 0, gScore = 0, gMode = 'see';
+
+document.querySelectorAll('.mode-btn').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('.mode-btn').forEach((x) => x.classList.toggle('active', x === b));
+  gMode = b.dataset.mode; gIndex = 0; gScore = 0; renderGame();
+}));
+
+// Karaoke: la palabra aparece letra por letra mientras se pronuncia
+function karaoke(word) {
+  gWord.innerHTML = '';
+  [...word].forEach((ch, i) => {
+    const s = document.createElement('span'); s.textContent = ch; s.style.animationDelay = `${i * 120}ms`;
+    gWord.appendChild(s);
+  });
+}
 
 function renderGame() {
+  gWord.textContent = '';
   if (gIndex >= GAME.length) {
     gEmoji.textContent = gScore === GAME.length ? '🏆' : '🎉';
     gOptions.innerHTML = `<button class="btn" type="button" id="game-again">Jugar otra vez</button>
@@ -72,20 +123,23 @@ function renderGame() {
     return;
   }
   const q = GAME[gIndex];
-  gEmoji.textContent = q.emoji;
-  gStatus.textContent = `Pregunta ${gIndex + 1} de ${GAME.length}`;
+  const hear = gMode === 'hear';
+  gEmoji.innerHTML = hear ? '<button type="button" class="speak-btn" aria-label="Escuchar la palabra">🔊</button>' : EMOJI[q.answer];
+  if (hear) { gEmoji.firstChild.onclick = () => say(q.answer); say(q.answer); }
+  gStatus.textContent = hear ? `Toca 🔊 y elige el dibujo · ${gIndex + 1} de ${GAME.length}` : `Pregunta ${gIndex + 1} de ${GAME.length}`;
   gOptions.innerHTML = '';
   for (const opt of q.options) {
     const b = document.createElement('button');
-    b.type = 'button'; b.className = 'game-opt'; b.textContent = opt;
+    b.type = 'button'; b.className = 'game-opt' + (hear ? ' emoji' : ''); b.textContent = hear ? EMOJI[opt] : opt; b.dataset.word = opt;
     b.onclick = () => {
       const ok = opt === q.answer;
       b.classList.add(ok ? 'ok' : 'bad');
-      gOptions.querySelectorAll('button').forEach((x) => { x.disabled = true; if (x.textContent === q.answer) x.classList.add('ok'); });
-      if (ok) { gScore++; tone(880, 150); setTimeout(() => tone(1320, 200), 120); gStatus.textContent = '¡Muy bien! 🎉'; }
+      gOptions.querySelectorAll('button').forEach((x) => { x.disabled = true; if (x.dataset.word === q.answer) x.classList.add('ok'); });
+      if (ok) { gScore++; tone(880, 150); setTimeout(() => tone(1320, 200), 120); gStatus.textContent = '¡Muy bien! 🎉'; celebrate(); }
       else { tone(220, 250); gStatus.textContent = `Casi. Se dice "${q.answer}".`; }
-      say(q.answer);
-      setTimeout(() => { gIndex++; renderGame(); }, 1300);
+      if (hear) gEmoji.textContent = EMOJI[q.answer];
+      karaoke(q.answer); say(q.answer);
+      setTimeout(() => { gIndex++; renderGame(); }, 1600);
     };
     gOptions.appendChild(b);
   }
@@ -155,6 +209,7 @@ form.addEventListener('submit', async (ev) => {
     form.reset();
     msg.className = 'form-msg ok';
     msg.textContent = '¡Listo! Te contactamos muy pronto.';
+    celebrate();
   } catch {
     msg.className = 'form-msg err';
     msg.textContent = 'No se pudo enviar. Intenta de nuevo o escríbenos por redes sociales.';
@@ -166,4 +221,6 @@ console.assert(levelFor(0) === LEVEL_NAMES[0] && levelFor(2) === LEVEL_NAMES[0],
 console.assert(levelFor(3) === LEVEL_NAMES[1] && levelFor(4) === LEVEL_NAMES[1], 'nivel intermedio');
 console.assert(levelFor(5) === LEVEL_NAMES[2] && levelFor(6) === LEVEL_NAMES[2], 'nivel avanzado');
 console.assert([...GAME, ...LEVEL].every((q) => q.options.includes(q.answer)), 'cada pregunta contiene su respuesta');
+console.assert(GAME.every((q) => q.options.every((o) => EMOJI[o])), 'cada opción del juego tiene emoji');
+console.assert(document.querySelectorAll('.age-btn').length === Object.keys(LEADS).length && [...document.querySelectorAll('.age-btn')].every((b) => LEADS[b.dataset.group]), 'cada botón de edad tiene texto');
 console.assert(LEVEL_NAMES.every((n) => [...document.getElementById('nivel-select').options].some((o) => o.text === n)), 'niveles coinciden con el formulario');

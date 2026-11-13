@@ -35,6 +35,11 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 .hl-red{color:var(--red)}.hl-blue{color:var(--blue)}
 .lead{font-size:1.15rem;color:var(--muted);max-width:34rem}
 .cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.5rem}
+.ages{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:1.2rem}
+.ages span{font-family:var(--head);font-weight:600;color:var(--navy);margin-right:.3rem}
+.age-btn{font:inherit;font-family:var(--head);font-weight:600;padding:.35em .9em;border-radius:999px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;transition:background .15s,color .15s,transform .15s}
+.age-btn:hover{transform:translateY(-2px)}
+.age-btn.active{background:var(--navy);color:#fff}
 
 .logo-wrap{position:relative;border-radius:var(--r);box-shadow:0 20px 50px rgba(31,43,77,.25);transition:transform .3s}
 .logo-wrap:hover{transform:rotate(-2deg) scale(1.02)}
@@ -42,6 +47,10 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 /* Ojo: círculo blanco que tapa la pupila original; la pupila nueva se mueve */
 .eye{position:absolute;width:13%;aspect-ratio:1;border-radius:50%;background:#fff;transform:translate(-50%,-50%);display:grid;place-items:center;pointer-events:none}
 .pupil{width:52%;aspect-ratio:1;border-radius:50%;background:#000;transition:transform .08s}
+.eye.wink{animation:wink .45s ease-in-out}
+@keyframes wink{50%{transform:translate(-50%,-50%) scaleY(.08)}}
+.happy{animation:happy .6s cubic-bezier(.36,.07,.19,.97)}
+@keyframes happy{30%{transform:translateY(-14px) rotate(-4deg)}60%{transform:translateY(0) rotate(3deg)}80%{transform:translateY(-5px)}}
 
 .who{display:grid;grid-template-columns:2fr 1fr;gap:1.5rem}
 .who-card{border-radius:var(--r);padding:2.2rem;color:#fff}
@@ -53,7 +62,9 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 .section-title{font-size:clamp(1.8rem,4vw,2.6rem);color:var(--navy)}
 .section-sub{color:var(--muted);font-weight:600;margin-bottom:2rem}
 .courses,.how{text-align:center}
-.how .section-title{margin-bottom:2rem}
+/* El título queda a la misma distancia de la sección anterior que de los pasos */
+.how{padding-top:3rem}
+.how .section-title{margin-bottom:3rem}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:2rem}
 .flip{position:relative;min-height:400px;cursor:pointer;perspective:1200px;border-radius:var(--r);outline-offset:4px}
 .flip:focus-visible{outline:3px solid var(--blue)}
@@ -83,7 +94,16 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 .game,.level{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:center}
 .game-board,.level-board{background:#fff;border-radius:var(--r);padding:2rem;text-align:center;border:3px solid var(--navy);box-shadow:8px 8px 0 var(--yellow)}
 .level-board{box-shadow:8px 8px 0 var(--blue)}
-.game-emoji{font-size:5rem;line-height:1;margin-bottom:1.2rem}
+.game-mode{display:flex;justify-content:center;gap:.5rem;margin-bottom:1.2rem}
+.mode-btn{font:inherit;font-family:var(--head);font-weight:600;font-size:.9rem;padding:.4em .9em;border-radius:999px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer}
+.mode-btn.active{background:var(--navy);color:#fff}
+.game-emoji{font-size:5rem;line-height:1;margin-bottom:.6rem}
+.speak-btn{font:inherit;font-size:4rem;line-height:1;background:var(--yellow);border:3px solid var(--navy);border-radius:50%;width:1.6em;height:1.6em;cursor:pointer;box-shadow:4px 4px 0 var(--navy);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{transform:scale(1.06)}}
+.game-opt.emoji{font-size:2.2rem;padding:.3em .5em}
+.game-word{font-family:var(--head);font-weight:700;font-size:2rem;color:var(--red);letter-spacing:.06em;min-height:1.3em;margin:0 0 .6rem}
+.game-word span{display:inline-block;opacity:0;animation:pop .35s forwards}
+@keyframes pop{0%{opacity:0;transform:translateY(12px) scale(.6)}70%{transform:translateY(-4px) scale(1.15)}100%{opacity:1;transform:none}}
 .game-options,.level-options{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;margin-bottom:1rem}
 .game-opt{font:inherit;font-family:var(--head);font-weight:600;font-size:1.1rem;padding:.7em 1.4em;border-radius:14px;border:3px solid var(--navy);background:var(--cream);color:var(--navy);cursor:pointer;box-shadow:4px 4px 0 var(--navy);transition:transform .12s,box-shadow .12s,background .2s}
 .game-opt:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--navy)}
@@ -94,9 +114,14 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 .level-q{font-size:1.5rem;margin-bottom:1.2rem}
 .level-progress{color:var(--muted);font-weight:700;margin-bottom:.4rem}
 
-.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;counter-reset:s}
-.steps li{background:#fff;border-radius:var(--r);padding:2rem;text-align:center}
-.steps span{display:grid;place-items:center;width:3rem;height:3rem;margin:0 auto 1rem;border-radius:50%;background:var(--yellow);font-family:var(--head);font-weight:700;font-size:1.3rem}
+.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;position:relative}
+/* Línea que une los pasos; se dibuja cuando se encienden */
+.steps::before{content:"";position:absolute;left:16%;right:16%;top:calc(2rem + 1.5rem);height:4px;background:var(--navy);transform:scaleX(0);transform-origin:left;transition:transform 1.2s ease .3s}
+.steps.drawn::before{transform:scaleX(1)}
+.steps li{background:#fff;border-radius:var(--r);padding:2rem;text-align:center;position:relative;opacity:.55;transition:opacity .4s}
+.steps li.lit{opacity:1}
+.steps span{display:grid;place-items:center;width:3rem;height:3rem;margin:0 auto 1rem;border-radius:50%;background:#ddd;color:var(--muted);font-family:var(--head);font-weight:700;font-size:1.3rem;transition:background .3s,color .3s,transform .3s}
+.steps li.lit span{background:var(--yellow);color:var(--ink);animation:happy .6s}
 
 .form-section{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:start}
 .form{background:#fff;border-radius:var(--r);padding:2rem;display:grid;gap:1rem;box-shadow:0 10px 30px rgba(31,43,77,.08)}
@@ -122,6 +147,7 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
   .hero{min-height:auto;padding-top:3rem}
   .logo-wrap{max-width:420px;margin:0 auto}
   .cards,.steps{grid-template-columns:1fr}
+  .steps::before{display:none}
   main>section{padding:3.5rem 16px}
   .cambridge{max-width:calc(100% - 32px);padding:2.5rem 1.5rem}
   .game-intro,.level-intro,.form-intro,.cambridge>div{text-align:center}
