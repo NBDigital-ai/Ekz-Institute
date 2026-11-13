@@ -4,7 +4,7 @@
 Página única, en español, para una escuela de inglés 100 % online. Público principal: padres de niños de 4 a 12 años; secundario: adultos. Objetivo: que agenden una clase muestra.
 
 ## Alcance
-- Sí: hero, para quién, cursos (A1-A2 / B1-B2 / C1-C2, lunes-miércoles-viernes), preparación Cambridge (Starters…Proficiency, sin precios), cómo funciona, formulario de clase muestra, pie con Facebook e Instagram.
+- Sí: hero, para quién, cursos (A1-A2 / B1-B2 / C1-C2, martes-miércoles-jueves), preparación Cambridge (Starters…Proficiency, sin precios), cómo funciona, formulario de clase muestra, pie con Facebook e Instagram.
 - No: precios de mensualidades, precios de exámenes, WhatsApp (queda oculto hasta que exista), blog, múltiples páginas, inglés.
 
 ## Enfoques

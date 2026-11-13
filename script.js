@@ -16,7 +16,7 @@ stepsIo.observe(document.querySelector('.steps'));
 
 // Selector de edad: cambia el texto del hero y prellena el formulario
 const LEADS = {
-  '4-6 años': 'Juegos, canciones y cuentos para sus primeras palabras en inglés. Clases cortas, muy activas, lunes, miércoles y viernes.',
+  '4-6 años': 'Juegos, canciones y cuentos para sus primeras palabras en inglés. Clases cortas, muy activas, martes, miércoles y jueves.',
   '7-9 años': 'Leen, escriben y hablan en inglés con confianza, rumbo a Starters y Movers. Grupos pequeños de su edad.',
   '10-12 años': 'Conversación real y preparación para Flyers y Key, con compañeros de su edad y un camino claro hacia Cambridge.',
   'Adulto': 'Desde cero o para certificar el nivel que ya tienes. Mismos horarios, misma atención, en vivo y en línea.',
