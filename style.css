@@ -80,11 +80,6 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 .social a{color:var(--navy);background:#fff;font-family:var(--head);font-weight:600;text-decoration:none;border:3px solid #fff;padding:.4em 1em;border-radius:12px;box-shadow:4px 4px 0 var(--yellow);transition:transform .12s,box-shadow .12s}
 .social a:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--yellow)}
 
-.wa-float{position:fixed;right:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:.5rem;background:#25D366;color:#fff;font-family:var(--head);font-weight:600;text-decoration:none;padding:.7em 1.1em;border-radius:14px;border:3px solid var(--navy);box-shadow:5px 5px 0 var(--navy);transition:transform .12s,box-shadow .12s}
-.wa-float:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--navy)}
-.wa-float:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--navy)}
-@media (max-width:600px){.wa-float span{display:none}.wa-float{padding:.7em;border-radius:50%}}
-
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}

@@ -4,7 +4,7 @@ Landing page estática (HTML/CSS/JS) de la escuela de inglés online. Se publica
 
 ## Pendientes para activar
 - **Formulario**: crear cuenta en [formspree.io](https://formspree.io) con el correo de la escuela y sustituir `FORMSPREE_ID` en `index.html`.
-- **WhatsApp**: sustituir `52XXXXXXXXXX` por el número real (con lada de país) en los dos enlaces de `index.html`: el del pie y el botón flotante.
+- **WhatsApp**: sustituir `52XXXXXXXXXX` por el número real (con lada de país) en el enlace del pie de `index.html`.
 
 ## Ver en local
 ```
