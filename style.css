@@ -145,7 +145,7 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 .buddy .eye{left:50%;top:36%;width:46%}
 .buddy-mouth{position:absolute;left:8%;right:8%;bottom:2px;width:84%}
 .buddy-legs{display:flex;justify-content:space-around;padding:0 12px}
-.buddy-legs span{width:9px;height:14px;background:var(--navy);border-radius:0 0 5px 5px;transform-origin:top center}
+.buddy-legs span{width:9px;height:14px;background:var(--yellow);border:2px solid var(--navy);border-top:0;border-radius:0 0 5px 5px;transform-origin:top center}
 .buddy.walking .buddy-legs span:first-child{animation:step .3s infinite alternate}
 .buddy.walking .buddy-legs span:last-child{animation:step .3s infinite alternate-reverse}
 @keyframes step{from{transform:rotate(-28deg)}to{transform:rotate(28deg)}}
