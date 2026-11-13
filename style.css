@@ -123,6 +123,8 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
   .cards,.steps{grid-template-columns:1fr}
   main>section{padding:3.5rem 16px}
   .cambridge{max-width:calc(100% - 32px);padding:2.5rem 1.5rem}
+  .game-intro,.level-intro,.form-intro,.cambridge>div{text-align:center}
+  .cambridge-logos{justify-content:center}
 }
 @media (max-width:600px){
   .nav nav a:not(.btn){display:none}
