@@ -40,6 +40,18 @@ a{color:inherit}
 .drawer-title{margin:1.2rem 0 .3rem;padding:0 .9em;font-family:var(--head);font-weight:700;color:var(--muted);text-transform:uppercase;font-size:.8rem;letter-spacing:.08em}
 .ico{width:1.2em;height:1.2em;vertical-align:-.25em;margin-right:.3em;flex-shrink:0}
 h1 .ico{width:.9em;height:.9em;vertical-align:-.08em}
+/* Iconos vivos: al pasar el cursor el bloque brinca, el ojo parpadea, la boca mastica y las pestañas vibran */
+.ico *{transform-box:fill-box;transform-origin:center}
+.ico{transition:transform .15s}
+a:hover .ico,button:hover .ico,h1:hover .ico{transform:translateY(-3px) rotate(-6deg)}
+a:hover .ico-eye,button:hover .ico-eye,h1:hover .ico-eye{animation:ico-blink .5s}
+@keyframes ico-blink{50%{transform:scaleY(.08)}}
+a:hover .ico-teeth,button:hover .ico-teeth,h1:hover .ico-teeth{animation:ico-chomp .35s infinite alternate;transform-origin:top}
+@keyframes ico-chomp{to{transform:scaleY(.35)}}
+a:hover .ico-lip,button:hover .ico-lip,h1:hover .ico-lip{animation:ico-talk .35s infinite alternate}
+@keyframes ico-talk{to{transform:scaleY(.6)}}
+a:hover .ico-lashes,button:hover .ico-lashes,h1:hover .ico-lashes{animation:ico-flutter .25s infinite alternate;transform-origin:bottom}
+@keyframes ico-flutter{to{transform:rotate(12deg)}}
 .soon{display:inline-block;background:var(--yellow);color:var(--navy);text-transform:none;letter-spacing:0;font-size:.7rem;padding:.1em .6em;border-radius:999px;margin-left:.4em;vertical-align:middle}
 .drawer-backdrop{position:fixed;inset:0;background:rgba(31,43,77,.5);z-index:25;opacity:0;pointer-events:none;transition:opacity .3s}
 .menu-open .drawer-backdrop{opacity:1;pointer-events:auto}

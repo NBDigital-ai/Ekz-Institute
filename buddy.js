@@ -1,17 +1,19 @@
 // Mascota y piezas compartidas por todas las páginas: pupilas, voz, festejo y el acompañante de scroll
 
-// Pupilas que siguen el cursor. data-ox/oy = posición de reposo, en fracción del ojo
-const pupils = document.querySelectorAll('.pupil');
+// Pupilas que siguen el cursor: las del logo y la mascota (.pupil, divs) y las de los iconos (.ico-pupil, SVG).
+// data-ox/oy = posición de reposo, en fracción del ojo. Se consultan en cada evento porque los iconos llegan después (menu.js).
 function placePupils(ev) {
-  for (const p of pupils) {
-    const r = p.parentElement.getBoundingClientRect();
-    let x = r.width * +p.dataset.ox, y = r.width * +p.dataset.oy;
+  for (const p of document.querySelectorAll('.pupil, .ico-pupil')) {
+    const svg = p.ownerSVGElement;
+    const r = (svg || p.parentElement).getBoundingClientRect();
+    let x = r.width * +(p.dataset.ox || 0), y = r.width * +(p.dataset.oy || 0);
     if (ev) {
       const dx = ev.clientX - (r.left + r.width / 2), dy = ev.clientY - (r.top + r.height / 2);
-      const a = Math.atan2(dy, dx), d = Math.min(r.width * 0.2, Math.hypot(dx, dy) / 15);
+      const a = Math.atan2(dy, dx), d = Math.min(r.width * (svg ? 0.1 : 0.2), Math.hypot(dx, dy) / 15);
       x = Math.cos(a) * d; y = Math.sin(a) * d;
     }
-    p.style.transform = `translate(${x}px, ${y}px)`;
+    if (svg) { const k = 40 / r.width; p.setAttribute('transform', `translate(${x * k} ${y * k})`); }
+    else p.style.transform = `translate(${x}px, ${y}px)`;
   }
 }
 placePupils();
