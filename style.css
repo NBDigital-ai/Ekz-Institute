@@ -38,8 +38,8 @@ a{color:inherit}
 .drawer a{text-decoration:none;font-family:var(--head);font-weight:600;font-size:1.15rem;color:var(--navy);padding:.55em .9em;border-radius:12px}
 .drawer a:hover{background:#fff;color:var(--red)}
 .drawer-title{margin:1.2rem 0 .3rem;padding:0 .9em;font-family:var(--head);font-weight:700;color:var(--muted);text-transform:uppercase;font-size:.8rem;letter-spacing:.08em}
-.ico{width:1.2em;height:1.2em;vertical-align:-.25em;margin-right:.3em;flex-shrink:0}
-h1 .ico{width:.9em;height:.9em;vertical-align:-.08em}
+svg.ico{width:1.2em;height:1.2em;max-width:1.2em;vertical-align:-.25em;margin-right:.3em;flex-shrink:0}
+h1 svg.ico{width:.9em;height:.9em;max-width:.9em;vertical-align:-.08em}
 /* Iconos vivos: al pasar el cursor el bloque brinca, el ojo parpadea, la boca mastica y las pestañas vibran */
 .ico *{transform-box:fill-box;transform-origin:center}
 .ico{transition:transform .15s}
