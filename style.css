@@ -72,7 +72,7 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 .cambridge{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;background:var(--navy);color:#fff;border-radius:var(--r);max-width:calc(var(--w) - 10vw)}
 .cambridge .section-title{color:#fff}
 .cambridge-logos{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
-.cambridge-logos img{height:72px;width:auto;border-radius:10px}
+.cambridge-logos img{height:72px;width:auto;border-radius:10px;background:#fff;padding:.5rem .8rem}
 .exam-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
 .exam-list li{background:rgba(255,255,255,.08);border-radius:12px;padding:.7rem 1rem;font-weight:600}
 .exam-list b{display:inline-block;min-width:3.6em;font-family:var(--head);color:var(--yellow)}
