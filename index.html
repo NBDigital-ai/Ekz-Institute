@@ -20,8 +20,9 @@
   <a href="#inicio" class="brand"><img src="assets/logo.webp" alt="English Kids Zone" width="44" height="44">English Kids Zone</a>
   <nav>
     <a href="#cursos">Cursos</a>
+    <a href="#juego">Juego</a>
     <a href="#cambridge">Cambridge</a>
-    <a href="#como">Cómo funciona</a>
+    <a href="#nivel">Tu nivel</a>
     <a href="#clase-muestra" class="btn btn-sm">Clase muestra</a>
   </nav>
 </header>
@@ -35,10 +36,15 @@
     <p class="lead">Clases en vivo los lunes, miércoles y viernes. Grupos pequeños, maestros que hacen que los niños quieran volver, y un camino claro hacia las certificaciones Cambridge.</p>
     <div class="cta-row">
       <a href="#clase-muestra" class="btn">Agenda tu clase muestra</a>
-      <a href="#cursos" class="btn btn-ghost">Ver cursos</a>
+      <a href="#juego" class="btn btn-ghost">Juega en inglés</a>
     </div>
   </div>
-  <img class="hero-logo" src="assets/logo.webp" alt="Logo de English Kid's Zone" width="620" height="620" fetchpriority="high">
+  <div class="logo-wrap">
+    <img class="hero-logo" src="assets/logo.webp" alt="Logo de English Kid's Zone" width="620" height="620" fetchpriority="high">
+    <!-- Ojos vivos: cubren las pupilas del logo con pupilas que siguen el cursor -->
+    <div class="eye" style="left:26.2%;top:12.3%"><div class="pupil" data-ox="-0.14" data-oy="-0.18"></div></div>
+    <div class="eye" style="left:73.9%;top:62.7%"><div class="pupil" data-ox="0" data-oy="0"></div></div>
+  </div>
 </section>
 
 <section class="who reveal">
@@ -56,34 +62,89 @@
 
 <section id="cursos" class="courses">
   <h2 class="section-title">Cursos</h2>
-  <p class="section-sub">Todos los niveles · Lunes, miércoles y viernes · En vivo y en línea</p>
+  <p class="section-sub">Todos los niveles · Lunes, miércoles y viernes · En vivo y en línea · Toca una tarjeta para ver más</p>
   <div class="cards">
-    <article class="card reveal" style="--accent:#1BA8E0">
-      <h3>A1 · A2</h3>
-      <p class="card-level">Básico</p>
-      <p>Primeras palabras, frases y conversaciones cotidianas. Ideal para quien empieza desde cero.</p>
-      <p class="card-exam">Prepara para: Starters, Movers, Flyers, Key</p>
-    </article>
-    <article class="card reveal" style="--accent:#F5C400">
-      <h3>B1 · B2</h3>
-      <p class="card-level">Intermedio</p>
-      <p>Hablar con soltura, leer y escribir sobre temas reales, y ganar confianza en cualquier situación.</p>
-      <p class="card-exam">Prepara para: Preliminary, First</p>
-    </article>
-    <article class="card reveal" style="--accent:#E8231D">
-      <h3>C1 · C2</h3>
-      <p class="card-level">Avanzado</p>
-      <p>Dominio del idioma para estudiar, trabajar o vivir en inglés con naturalidad.</p>
-      <p class="card-exam">Prepara para: Advanced, Proficiency</p>
-    </article>
+    <div class="flip reveal" style="--accent:#1BA8E0" tabindex="0" role="button" aria-label="A1 A2 básico, ver detalles">
+      <article class="card card-front">
+        <h3>A1 · A2</h3>
+        <p class="card-level">Básico</p>
+        <p>Primeras palabras, frases y conversaciones cotidianas. Ideal para quien empieza desde cero.</p>
+        <p class="card-exam">Prepara para: Starters, Movers, Flyers, Key</p>
+        <span class="flip-hint">Toca para voltear ↻</span>
+      </article>
+      <article class="card card-back">
+        <h3>¿Qué aprende?</h3>
+        <ul>
+          <li>Vocabulario con juegos, canciones y cuentos</li>
+          <li>Presentarse, la familia, los colores, los animales</li>
+          <li>Entender y seguir instrucciones en inglés</li>
+          <li>Leer y escribir sus primeras oraciones</li>
+        </ul>
+        <span class="flip-hint">Toca para volver ↻</span>
+      </article>
+    </div>
+    <div class="flip reveal" style="--accent:#F5C400" tabindex="0" role="button" aria-label="B1 B2 intermedio, ver detalles">
+      <article class="card card-front">
+        <h3>B1 · B2</h3>
+        <p class="card-level">Intermedio</p>
+        <p>Hablar con soltura, leer y escribir sobre temas reales, y ganar confianza en cualquier situación.</p>
+        <p class="card-exam">Prepara para: Preliminary, First</p>
+        <span class="flip-hint">Toca para voltear ↻</span>
+      </article>
+      <article class="card card-back">
+        <h3>¿Qué aprende?</h3>
+        <ul>
+          <li>Conversar sobre gustos, planes y experiencias</li>
+          <li>Leer textos reales: noticias, historias, correos</li>
+          <li>Escribir mensajes, resúmenes y relatos</li>
+          <li>Gramática en uso, no de memoria</li>
+        </ul>
+        <span class="flip-hint">Toca para volver ↻</span>
+      </article>
+    </div>
+    <div class="flip reveal" style="--accent:#E8231D" tabindex="0" role="button" aria-label="C1 C2 avanzado, ver detalles">
+      <article class="card card-front">
+        <h3>C1 · C2</h3>
+        <p class="card-level">Avanzado</p>
+        <p>Dominio del idioma para estudiar, trabajar o vivir en inglés con naturalidad.</p>
+        <p class="card-exam">Prepara para: Advanced, Proficiency</p>
+        <span class="flip-hint">Toca para voltear ↻</span>
+      </article>
+      <article class="card card-back">
+        <h3>¿Qué aprende?</h3>
+        <ul>
+          <li>Debatir, argumentar y presentar ideas</li>
+          <li>Comprender textos académicos y profesionales</li>
+          <li>Escribir ensayos, informes y cartas formales</li>
+          <li>Matices, expresiones y registro formal e informal</li>
+        </ul>
+        <span class="flip-hint">Toca para volver ↻</span>
+      </article>
+    </div>
   </div>
   <p class="center"><a href="#clase-muestra" class="btn btn-ghost">Pide informes</a></p>
+</section>
+
+<section id="juego" class="game reveal">
+  <div class="game-intro">
+    <h2 class="section-title">¿Cómo se dice en inglés?</h2>
+    <p>Un juego de 30 segundos para que tu hijo pruebe cómo aprendemos. Toca la respuesta y escucha cómo se pronuncia.</p>
+  </div>
+  <div class="game-board" id="game-board">
+    <div class="game-emoji" id="game-emoji"></div>
+    <div class="game-options" id="game-options"></div>
+    <p class="game-status" id="game-status" role="status"></p>
+  </div>
 </section>
 
 <section id="cambridge" class="cambridge reveal">
   <div>
     <h2 class="section-title">Preparación para certificaciones Cambridge</h2>
     <p>Las certificaciones Cambridge English son reconocidas en todo el mundo. Nuestros cursos siguen su camino nivel por nivel, para que cada alumno llegue al examen listo y tranquilo.</p>
+    <div class="cambridge-logos">
+      <img src="assets/cambridge-english.png" alt="Cambridge English" width="165" height="84">
+      <img src="assets/cambridge-qualifications.png" alt="Cambridge English Qualifications" width="127" height="84">
+    </div>
   </div>
   <ul class="exam-list">
     <li><b>Pre A1</b> Starters</li>
@@ -95,6 +156,18 @@
     <li><b>C1</b> Advanced</li>
     <li><b>C2</b> Proficiency</li>
   </ul>
+</section>
+
+<section id="nivel" class="level reveal">
+  <div class="level-intro">
+    <h2 class="section-title">¿Cuál es tu nivel?</h2>
+    <p>Para adultos. Seis preguntas rápidas y te decimos con qué curso empezar.</p>
+  </div>
+  <div class="level-board" id="level-board">
+    <p class="level-progress" id="level-progress"></p>
+    <p class="level-q" id="level-q"></p>
+    <div class="level-options" id="level-options"></div>
+  </div>
 </section>
 
 <section id="como" class="how">
@@ -116,7 +189,7 @@
     <label>Tu nombre <input name="nombre" required autocomplete="name"></label>
     <label>Edad del alumno <input name="edad" type="number" min="3" max="99" required></label>
     <label>Nivel que te interesa
-      <select name="nivel" required>
+      <select name="nivel" id="nivel-select" required>
         <option value="">Elige uno</option>
         <option>No sé, quiero que lo evalúen</option>
         <option>A1 · A2 básico</option>

@@ -36,8 +36,12 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 .lead{font-size:1.15rem;color:var(--muted);max-width:34rem}
 .cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.5rem}
 
-.hero-logo{width:100%;height:auto;border-radius:var(--r);box-shadow:0 20px 50px rgba(31,43,77,.25);transition:transform .3s}
-.hero-logo:hover{transform:rotate(-2deg) scale(1.02)}
+.logo-wrap{position:relative;border-radius:var(--r);box-shadow:0 20px 50px rgba(31,43,77,.25);transition:transform .3s}
+.logo-wrap:hover{transform:rotate(-2deg) scale(1.02)}
+.hero-logo{width:100%;height:auto;border-radius:var(--r)}
+/* Ojo: círculo blanco que tapa la pupila original; la pupila nueva se mueve */
+.eye{position:absolute;width:13%;aspect-ratio:1;border-radius:50%;background:#fff;transform:translate(-50%,-50%);display:grid;place-items:center;pointer-events:none}
+.pupil{width:52%;aspect-ratio:1;border-radius:50%;background:#000;transition:transform .08s}
 
 .who{display:grid;grid-template-columns:2fr 1fr;gap:1.5rem}
 .who-card{border-radius:var(--r);padding:2.2rem;color:#fff}
@@ -49,17 +53,44 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 .section-title{font-size:clamp(1.8rem,4vw,2.6rem);color:var(--navy)}
 .section-sub{color:var(--muted);font-weight:600;margin-bottom:2rem}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:2rem}
-.card{background:#fff;border-radius:var(--r);padding:2rem;border-top:10px solid var(--accent);box-shadow:0 10px 30px rgba(31,43,77,.08);transition:transform .2s}
-.card:hover{transform:translateY(-6px)}
+.flip{position:relative;min-height:400px;cursor:pointer;perspective:1200px;border-radius:var(--r);outline-offset:4px}
+.flip:focus-visible{outline:3px solid var(--blue)}
+.card{position:absolute;inset:0;backface-visibility:hidden;transition:transform .6s;display:flex;flex-direction:column;background:#fff;border-radius:var(--r);padding:2rem;border-top:10px solid var(--accent);box-shadow:0 10px 30px rgba(31,43,77,.08)}
+.card-back{transform:rotateY(180deg);background:var(--accent);color:var(--navy);border-top-color:var(--navy)}
+.card-back h3{color:var(--navy);font-size:1.6rem}
+.card-back ul{padding-left:1.2rem;margin:0;font-weight:600;font-size:.95rem}
+.card-back li{margin-bottom:.4rem}
+.flip.flipped .card-front{transform:rotateY(180deg)}
+.flip.flipped .card-back{transform:rotateY(360deg)}
+.flip:hover .card-front{transform:rotateY(-8deg)}
+.flip.flipped:hover .card-front{transform:rotateY(180deg)}
+.flip-hint{margin-top:auto;padding-top:1rem;font-size:.8rem;font-weight:700;opacity:.6}
 .card h3{font-size:2rem;color:var(--accent)}
 .card-level{font-family:var(--head);font-weight:600;color:var(--navy);margin-bottom:.8rem}
 .card-exam{font-size:.9rem;color:var(--muted);margin:0;padding-top:.8rem;border-top:1px dashed #ddd}
 
 .cambridge{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;background:var(--navy);color:#fff;border-radius:var(--r);max-width:calc(var(--w) - 10vw)}
 .cambridge .section-title{color:#fff}
+.cambridge-logos{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+.cambridge-logos img{height:72px;width:auto;border-radius:10px}
 .exam-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
 .exam-list li{background:rgba(255,255,255,.08);border-radius:12px;padding:.7rem 1rem;font-weight:600}
 .exam-list b{display:inline-block;min-width:3.6em;font-family:var(--head);color:var(--yellow)}
+
+/* Juego y test de nivel */
+.game,.level{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:center}
+.game-board,.level-board{background:#fff;border-radius:var(--r);padding:2rem;text-align:center;border:3px solid var(--navy);box-shadow:8px 8px 0 var(--yellow)}
+.level-board{box-shadow:8px 8px 0 var(--blue)}
+.game-emoji{font-size:5rem;line-height:1;margin-bottom:1.2rem}
+.game-options,.level-options{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;margin-bottom:1rem}
+.game-opt{font:inherit;font-family:var(--head);font-weight:600;font-size:1.1rem;padding:.7em 1.4em;border-radius:14px;border:3px solid var(--navy);background:var(--cream);color:var(--navy);cursor:pointer;box-shadow:4px 4px 0 var(--navy);transition:transform .12s,box-shadow .12s,background .2s}
+.game-opt:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--navy)}
+.game-opt:disabled{cursor:default;opacity:.7}
+.game-opt.ok{background:#4ad17a;color:#fff;opacity:1}
+.game-opt.bad{background:var(--red);color:#fff}
+.game-status,.level-q{font-family:var(--head);font-weight:600;color:var(--navy);margin:0;min-height:1.6em}
+.level-q{font-size:1.5rem;margin-bottom:1.2rem}
+.level-progress{color:var(--muted);font-weight:700;margin-bottom:.4rem}
 
 .steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;counter-reset:s}
 .steps li{background:#fff;border-radius:var(--r);padding:2rem;text-align:center}
@@ -85,9 +116,9 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 
 @media (max-width:900px){
-  .hero,.who,.cambridge,.form-section{grid-template-columns:1fr}
+  .hero,.who,.cambridge,.form-section,.game,.level{grid-template-columns:1fr}
   .hero{min-height:auto;padding-top:3rem}
-  .hero-logo{max-width:420px;margin:0 auto}
+  .logo-wrap{max-width:420px;margin:0 auto}
   .cards,.steps{grid-template-columns:1fr}
   main>section{padding:3.5rem 16px}
   .cambridge{max-width:calc(100% - 32px);padding:2.5rem 1.5rem}
