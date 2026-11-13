@@ -15,7 +15,7 @@ Página única, en español, para una escuela de inglés 100 % online. Público 
 - Formulario → Formspree. El endpoint queda como marcador `FORMSPREE_ID` hasta que exista el correo de la escuela.
 - Redes: enlaces marcadores en el pie; WhatsApp es un botón con `hidden` listo para activar.
 - Paleta del logo: rojo #E8231D, amarillo #F5C400, azul #1BA8E0, marino #1F2B4D, crema #F5F0E1. Tipografía redondeada (Fredoka + Nunito).
-- Interacción ligera: ojos del logo siguen el cursor, reveal al hacer scroll, validación nativa del formulario.
+- El hero usa el logo original tal cual (no una recreación). Interacción ligera: reveal al hacer scroll, validación nativa del formulario.
 
 ## Plan
 1. `index.html` + `style.css` + `script.js` + `assets/logo.webp`.

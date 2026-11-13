@@ -4,17 +4,6 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
-// Eyes follow the pointer
-const pupils = document.querySelectorAll('.pupil');
-addEventListener('pointermove', (ev) => {
-  for (const p of pupils) {
-    const r = p.closest('svg').getBoundingClientRect();
-    const dx = ev.clientX - (r.left + r.width / 2), dy = ev.clientY - (r.top + r.height / 2);
-    const a = Math.atan2(dy, dx), d = Math.min(14, Math.hypot(dx, dy) / 20);
-    p.style.transform = `translate(${Math.cos(a) * d}px, ${Math.sin(a) * d}px)`;
-  }
-}, { passive: true });
-
 // Form: submit via fetch so the visitor stays on the page
 const form = document.querySelector('.form');
 const msg = form.querySelector('.form-msg');

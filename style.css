@@ -34,12 +34,8 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 .lead{font-size:1.15rem;color:var(--muted);max-width:34rem}
 .cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.5rem}
 
-.hero-grid{display:grid;grid-template-columns:repeat(3,1fr);aspect-ratio:1;border-radius:var(--r);overflow:hidden;box-shadow:0 20px 50px rgba(31,43,77,.25)}
-.cell{position:relative;display:grid;place-items:center;overflow:visible}
-.red{background:var(--red)}.yellow{background:var(--yellow)}.blue{background:var(--blue)}.navy{background:var(--navy)}.cream{background:var(--cream)}
-.eye{width:60%;overflow:visible}
-.pupil{fill:#000;transition:transform .08s}
-.mouth{position:absolute;width:190%;left:5%;top:15%;z-index:2}
+.hero-logo{width:100%;height:auto;border-radius:var(--r);box-shadow:0 20px 50px rgba(31,43,77,.25);transition:transform .3s}
+.hero-logo:hover{transform:rotate(-2deg) scale(1.02)}
 
 .who{display:grid;grid-template-columns:2fr 1fr;gap:1.5rem}
 .who-card{border-radius:var(--r);padding:2.2rem;color:#fff}
@@ -89,7 +85,7 @@ main>section{padding:5rem 5vw;max-width:var(--w);margin:0 auto}
 @media (max-width:900px){
   .hero,.who,.cambridge,.form-section{grid-template-columns:1fr}
   .hero{min-height:auto;padding-top:3rem}
-  .hero-grid{max-width:420px;margin:0 auto}
+  .hero-logo{max-width:420px;margin:0 auto}
   .cards,.steps{grid-template-columns:1fr}
   main>section{padding:3.5rem 16px}
   .cambridge{max-width:calc(100% - 32px);padding:2.5rem 1.5rem}
