@@ -25,7 +25,22 @@
     <a href="#nivel">Tu nivel</a>
     <a href="#clase-muestra" class="btn btn-sm">Clase muestra</a>
   </nav>
+  <button class="burger" id="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
 </header>
+<nav class="drawer" id="drawer" aria-label="Menú">
+  <a href="#inicio">Inicio</a>
+  <a href="#cursos">Cursos</a>
+  <a href="#juego">Juego</a>
+  <a href="#cambridge">Cambridge</a>
+  <a href="#nivel">Tu nivel</a>
+  <a href="#como">Cómo funciona</a>
+  <a href="#clase-muestra">Clase muestra</a>
+  <p class="drawer-title">Portales <span class="soon">próximamente</span></p>
+  <a href="maestro.html">👩‍🏫 Maestro</a>
+  <a href="alumno.html">🎒 Alumno</a>
+  <a href="padres.html">👨‍👩‍👧 Padre de familia</a>
+</nav>
+<div class="drawer-backdrop" id="drawer-backdrop"></div>
 
 <main>
 
@@ -245,6 +260,7 @@
   <div class="buddy-legs"><span></span><span></span></div>
 </div>
 
+<script src="menu.js" defer></script>
 <script src="script.js" defer></script>
 </body>
 </html>
