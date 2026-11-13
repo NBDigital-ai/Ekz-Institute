@@ -27,8 +27,9 @@ const logoWrap = document.querySelector('.logo-wrap');
 const brandLogo = document.querySelector('.brand img');
 function celebrate() {
   for (const el of [logoWrap, brandLogo]) { el.classList.remove('happy'); void el.offsetWidth; el.classList.add('happy'); }
-  const eye = document.querySelector('.eye');
-  eye.classList.add('wink'); setTimeout(() => eye.classList.remove('wink'), 450);
+  for (const eye of [document.querySelector('.logo-wrap .eye'), document.querySelector('.buddy .eye')]) {
+    eye.classList.add('wink'); setTimeout(() => eye.classList.remove('wink'), 450);
+  }
 }
 
 // Pasos que se encienden en secuencia al entrar en pantalla
@@ -55,6 +56,39 @@ document.querySelectorAll('.age-btn').forEach((b) => b.addEventListener('click',
   document.getElementById('edad-input').value = b.dataset.age;
   document.getElementById('grupo-input').value = b.dataset.group;
 }));
+
+// Mascota acompañante: su altura sigue el avance del scroll; camina mientras te mueves y saluda en cada sección
+const buddy = document.getElementById('buddy');
+const bubble = document.getElementById('buddy-bubble');
+const GREETINGS = { inicio: '¡Hola! 👋', quienes: 'Para peques… y grandes', cursos: 'Toca una tarjeta', juego: '¿Jugamos?', cambridge: '¡Rumbo a Cambridge!', nivel: '¡Tú puedes!', como: 'Es muy fácil', 'clase-muestra': '¡Agenda tu clase!' };
+const sections = Object.keys(GREETINGS).map((id) => document.getElementById(id));
+let walkTimer, lastGreeting = '';
+function moveBuddy() {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  const progress = max > 0 ? scrollY / max : 0;
+  const top = 90, bottom = innerHeight - buddy.offsetHeight - 24;
+  buddy.style.transform = `translateY(${top + progress * (bottom - top)}px)`;
+  buddy.classList.add('walking');
+  clearTimeout(walkTimer);
+  walkTimer = setTimeout(() => {
+    buddy.classList.remove('walking');
+    const mid = scrollY + innerHeight / 2;
+    const current = sections.filter((s) => s.offsetTop <= mid).pop();
+    if (current && current.id !== lastGreeting) { lastGreeting = current.id; greet(GREETINGS[current.id]); }
+  }, 180);
+}
+let bubbleTimer;
+function greet(text) {
+  bubble.textContent = text; bubble.classList.add('show');
+  clearTimeout(bubbleTimer); bubbleTimer = setTimeout(() => bubble.classList.remove('show'), 2500);
+}
+addEventListener('scroll', moveBuddy, { passive: true });
+addEventListener('resize', moveBuddy);
+moveBuddy();
+setTimeout(() => greet(GREETINGS.inicio), 800);
+const buddyGo = () => { say('Hello!'); celebrate(); document.getElementById('clase-muestra').scrollIntoView({ behavior: 'smooth' }); };
+buddy.addEventListener('click', buddyGo);
+buddy.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); buddyGo(); } });
 
 // Tarjetas de cursos que se voltean
 document.querySelectorAll('.flip').forEach((card) => {
@@ -222,5 +256,6 @@ console.assert(levelFor(3) === LEVEL_NAMES[1] && levelFor(4) === LEVEL_NAMES[1],
 console.assert(levelFor(5) === LEVEL_NAMES[2] && levelFor(6) === LEVEL_NAMES[2], 'nivel avanzado');
 console.assert([...GAME, ...LEVEL].every((q) => q.options.includes(q.answer)), 'cada pregunta contiene su respuesta');
 console.assert(GAME.every((q) => q.options.every((o) => EMOJI[o])), 'cada opción del juego tiene emoji');
+console.assert(sections.every(Boolean), 'cada saludo de la mascota apunta a una sección existente');
 console.assert(document.querySelectorAll('.age-btn').length === Object.keys(LEADS).length && [...document.querySelectorAll('.age-btn')].every((b) => LEADS[b.dataset.group]), 'cada botón de edad tiene texto');
 console.assert(LEVEL_NAMES.every((n) => [...document.getElementById('nivel-select').options].some((o) => o.text === n)), 'niveles coinciden con el formulario');
